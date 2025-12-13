@@ -1,65 +1,168 @@
+"use client";
 import Image from "next/image";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import { motion } from "framer-motion";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <>
+      <Header />
+
+      <main className="max-w-5xl mx-auto px-6 pt-32 pb-24 space-y-28">
+
+        {/* HERO */}
+     <section className="grid md:grid-cols-2 gap-12 items-center">
+      
+      {/* TEXT */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        className="space-y-6"
+      >
+        <h1 className="text-4xl md:text-5xl font-semibold tracking-tight">
+          Work and thinking at the intersection of{" "}
+          <span className="text-white">software, growth, and story</span>.
+        </h1>
+
+        <p className="text-gray-400 text-lg">
+          Software Developer · Digital Marketer · Storyteller
+        </p>
+      </motion.div>
+
+      {/* IMAGE */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8, ease: "easeOut", delay: 0.1 }}
+        className="relative aspect-square rounded-2xl overflow-hidden border border-white/10"
+      >
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="/bikram.jpg"
+          alt="Bikram Mondal"
+          fill
+          className="object-cover"
           priority
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+      </motion.div>
+
+    </section>
+
+        {/* INTRO */}
+        <section className="space-y-6 text-gray-300 leading-relaxed max-w-3xl">
+          <p>
+            I’m a builder working across software engineering, product thinking,
+            and digital growth.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <p>
+            My work lives where logic meets narrative — systems that scale,
+            products that feel human, and ideas that travel through culture.
+          </p>
+          <p>
+            This site is a living record of what I build, explore, and learn.
+          </p>
+        </section>
+
+        {/* SELECTED WORK */}
+<section id="work" className="space-y-10">
+  <h2 className="text-2xl font-semibold text-white">
+    Selected Work
+  </h2>
+
+  <div className="grid gap-8 md:grid-cols-3">
+    {[
+      {
+        title: "SaaS & Applications",
+        img: "https://img.icons8.com/ios-filled/100/ffffff/source-code.png",
+        desc: "Full-stack products, MVPs, internal tools, automation systems.",
+      },
+      {
+        title: "Growth & Systems",
+        img: "https://img.icons8.com/ios-filled/100/ffffff/combo-chart.png",
+        desc: "Funnels, analytics, automation, and first-party data systems.",
+      },
+      {
+        title: "Media & Storytelling",
+        img: "https://img.icons8.com/ios-filled/100/ffffff/storytelling.png",
+        desc: "Narrative-led content and culturally rooted storytelling.",
+      },
+    ].map((item) => (
+      <div
+        key={item.title}
+        className="rounded-xl border border-white/10 bg-surface p-6"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative w-8 h-8">
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
+              src={item.img}
+              alt={item.title}
+              width={32}
+              height={32}
             />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+          </div>
+
+          <h3 className="text-lg font-medium text-white">
+            {item.title}
+          </h3>
         </div>
+
+        <p className="mt-4 text-gray-400 text-sm leading-relaxed">
+          {item.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>
+
+
+        {/* EXPERTISE */}
+        <section className="space-y-10 max-w-3xl">
+          <h2 className="text-2xl font-semibold text-white">
+            Areas of Expertise
+          </h2>
+
+          <ul className="space-y-4 text-gray-300">
+            <li><strong className="text-white">Software Development</strong> — Full-stack systems & scalable architecture.</li>
+            <li><strong className="text-white">Product Thinking</strong> — Turning ideas into durable systems.</li>
+            <li><strong className="text-white">Growth & Strategy</strong> — Performance, automation, analytics.</li>
+            <li><strong className="text-white">Story & Communication</strong> — Making technology human.</li>
+          </ul>
+        </section>
+
+        {/* PRINCIPLES */}
+        <section className="space-y-6 border-l border-white/10 pl-6 text-gray-300 max-w-2xl">
+          <p>I don’t chase trends.</p>
+          <p>Systems over shortcuts.</p>
+          <p>Good products are engineered.</p>
+          <p>Great products are felt.</p>
+          <p>Technology needs story to matter.</p>
+        </section>
+
+        {/* WRITING */}
+        <section id="writing" className="space-y-6 max-w-3xl">
+          <h2 className="text-2xl font-semibold text-white">
+            Writing & Thinking
+          </h2>
+          <p className="text-gray-400">
+            Occasional writing on building products, software creativity,
+            growth systems, and media-tech intersections.
+          </p>
+        </section>
+
+        {/* CURRENT FOCUS */}
+        <section id="focus" className="space-y-4 max-w-3xl">
+          <h2 className="text-2xl font-semibold text-white">
+            Current Focus
+          </h2>
+          <p className="text-gray-400">
+            Building scalable SaaS products, exploring media-tech hybrids,
+            and refining systems that merge engineering, growth, and narrative.
+          </p>
+        </section>
+
+        <Footer />
       </main>
-    </div>
+    </>
   );
 }
