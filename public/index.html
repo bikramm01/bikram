@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bikram Mondal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Geist+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: #0a0a0a; color: #e8e4dc; font-family: 'Geist Mono', monospace; font-weight: 300; overflow-x: hidden; }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: rgba(232,228,220,0.2); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes lineGrow {
+    from { width: 0; }
+    to { width: 100%; }
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .fade-up { animation: fadeUp 1s ease both; }
+  .fade-in { animation: fadeIn 1.2s ease both; }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.3s; }
+  .d3 { animation-delay: 0.5s; }
+  .d4 { animation-delay: 0.7s; }
+  .d5 { animation-delay: 0.9s; }
+
+  nav a:hover { color: #e8e4dc; }
+  .btn-primary:hover { background: #e8e4dc; color: #0a0a0a; }
+  .btn-ghost:hover { border-color: rgba(232,228,220,0.4); background: rgba(232,228,220,0.04); }
+  .project-card:hover { border-color: rgba(232,228,220,0.2); background: rgba(232,228,220,0.03); }
+  .project-card:hover .arrow { transform: translate(3px, -3px); }
+  .arrow { transition: transform 0.3s ease; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; background: linear-gradient(to bottom, rgba(10,10,10,0.9) 0%, transparent 100%); backdrop-filter: blur(2px);">
+  <span style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-weight: 400; letter-spacing: 0.05em;">BIKRAM</span>
+  <nav style="display: flex; gap: 40px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(232,228,220,0.45);">
+    <a href="#work" style="transition: color 0.2s;">Work</a>
+    <a href="#about" style="transition: color 0.2s;">About</a>
+    <a href="#contact" style="transition: color 0.2s;">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section style="position: relative; height: 100vh; min-height: 700px; display: flex; align-items: flex-end; overflow: hidden;">
+
+  <!-- Hero image placeholder — editorial photography feel -->
+  <div style="position: absolute; inset: 0;">
+    <img
+      src="/hero.png"
+      alt="Builder working"
+      style="width: 100%; height: 100%; object-fit: cover; object-position: center 30%; filter: brightness(0.7) contrast(1.05);"
+      onerror="this.style.display='none'"
+    />
+    <!-- Gradient over image -->
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, #0a0a0a 0%, transparent 55%), linear-gradient(to right, rgba(10,10,10,0.6) 0%, transparent 60%);"></div>
+  </div>
+
+  <!-- Hero text -->
+  <div style="position: relative; z-index: 2; padding: 0 48px 80px; max-width: 860px;">
+    <p class="fade-up d1" style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(232,228,220,0.45); margin-bottom: 24px;">Builder · Storyteller · Systems Thinker</p>
+    <h1 class="fade-up d2" style="font-family: 'Cormorant Garamond', serif; font-size: clamp(52px, 8vw, 96px); font-weight: 300; line-height: 1.0; letter-spacing: -0.01em; margin-bottom: 32px;">
+      Bikram<br/>
+      <em style="font-style: italic; font-weight: 300;">Mondal</em>
+    </h1>
+    <p class="fade-up d3" style="font-size: 13px; line-height: 1.8; color: rgba(232,228,220,0.6); max-width: 420px; margin-bottom: 40px;">
+      Building intelligent digital systems, brands, and experiences from India — where software meets storytelling.
+    </p>
+    <div class="fade-up d4" style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
+      <a href="#work" class="btn-primary" style="display: inline-block; padding: 14px 32px; border: 1px solid #e8e4dc; background: transparent; color: #e8e4dc; font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease;">View Work</a>
+      <a href="#contact" class="btn-ghost" style="display: inline-block; padding: 14px 32px; border: 1px solid rgba(232,228,220,0.15); background: transparent; color: rgba(232,228,220,0.6); font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; cursor: pointer; transition: all 0.3s ease;">Get in Touch</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="fade-in d5" style="position: absolute; bottom: 40px; right: 48px; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+    <div style="width: 1px; height: 60px; background: linear-gradient(to bottom, rgba(232,228,220,0.5), transparent);"></div>
+    <span style="font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(232,228,220,0.3); writing-mode: vertical-rl;">Scroll</span>
+  </div>
+</section>
+
+<!-- MARQUEE BAR -->
+<div style="border-top: 1px solid rgba(232,228,220,0.08); border-bottom: 1px solid rgba(232,228,220,0.08); padding: 18px 0; overflow: hidden; white-space: nowrap;">
+  <div style="display: inline-block; animation: marquee 22s linear infinite;">
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">AI Workflows</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Betazu</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Business Systems</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">BOS</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Bengali Cinema</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Cha Goppo</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">AI Workflows</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Betazu</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Business Systems</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">BOS</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Bengali Cinema</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+    <span style="font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.25); padding: 0 60px;">Cha Goppo</span>
+    <span style="color: rgba(232,228,220,0.1); padding: 0 8px;">·</span>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section id="work" style="padding: 120px 48px;">
+  <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 80px; border-bottom: 1px solid rgba(232,228,220,0.08); padding-bottom: 24px;">
+    <span style="font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(232,228,220,0.35);">Selected Work</span>
+    <span style="font-family: 'Cormorant Garamond', serif; font-size: 13px; color: rgba(232,228,220,0.35); font-style: italic;">2022 — Present</span>
+  </div>
+
+  <div style="display: flex; flex-direction: column; gap: 0;">
+
+    <!-- Project 1 -->
+    <a href="https://www.betazu.com" class="project-card" style="display: grid; grid-template-columns: 60px 1fr 200px 80px; align-items: center; gap: 32px; padding: 32px 0; border-bottom: 1px solid rgba(232,228,220,0.08); cursor: pointer; transition: all 0.3s ease;">
+      <span style="font-size: 11px; color: rgba(232,228,220,0.2); letter-spacing: 0.1em;">01</span>
+      <div>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 6px;">Betazu</h2>
+        <p style="font-size: 11px; color: rgba(232,228,220,0.4); letter-spacing: 0.12em; text-transform: uppercase;">AI Productivity Ecosystem</p>
+      </div>
+      <span style="font-size: 11px; color: rgba(232,228,220,0.3); letter-spacing: 0.1em; text-transform: uppercase;">Software · AI</span>
+      <div class="arrow" style="text-align: right; font-size: 18px; color: rgba(232,228,220,0.3);">↗</div>
+    </a>
+
+
+    <!-- Project 2 -->
+    <a href="http://www.youtube.com/@bangalianaent" class="project-card" style="display: grid; grid-template-columns: 60px 1fr 200px 80px; align-items: center; gap: 32px; padding: 32px 0; border-bottom: 1px solid rgba(232,228,220,0.08); cursor: pointer; transition: all 0.3s ease;">
+      <span style="font-size: 11px; color: rgba(232,228,220,0.2); letter-spacing: 0.1em;">03</span>
+      <div>
+        <h2 style="font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 300; margin-bottom: 6px;">Bangaliana Entertainment</h2>
+        <p style="font-size: 11px; color: rgba(232,228,220,0.4); letter-spacing: 0.12em; text-transform: uppercase;">Bengali Entertainment & Film</p>
+      </div>
+      <span style="font-size: 11px; color: rgba(232,228,220,0.3); letter-spacing: 0.1em; text-transform: uppercase;">Culture · Film</span>
+      <div class="arrow" style="text-align: right; font-size: 18px; color: rgba(232,228,220,0.3);">↗</div>
+    </a>
+
+    
+
+  </div>
+</section>
+
+<!-- PHILOSOPHY / PULL QUOTE -->
+<section id="about" style="padding: 100px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; border-top: 1px solid rgba(232,228,220,0.08);">
+  
+  <!-- Image -->
+  <div style="position: relative; aspect-ratio: 3/4; overflow: hidden;">
+    <img
+      src="/bikram.jpg"
+      alt="Bikram Mondal"
+      style="width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%) brightness(0.85);"
+      onerror="this.style.background='#1a1a1a'; this.style.display='flex'; this.alt=''"
+    />
+    <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.4) 0%, transparent 50%);"></div>
+    <!-- small tag -->
+    <div style="position: absolute; bottom: 24px; left: 24px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.5);">Berhampore, India</div>
+  </div>
+
+  <!-- Text -->
+  <div>
+    <p style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(232,228,220,0.35); margin-bottom: 36px;">Philosophy</p>
+    <blockquote style="font-family: 'Cormorant Garamond', serif; font-size: clamp(26px, 3.5vw, 40px); font-weight: 300; line-height: 1.35; font-style: italic; margin-bottom: 40px; color: #e8e4dc;">
+      "The future belongs to those who combine creativity, systems, and technology."
+    </blockquote>
+    <p style="font-size: 12px; line-height: 1.9; color: rgba(232,228,220,0.45); max-width: 380px;">
+      I work at the intersection of technology and storytelling — building digital ecosystems designed for utility, emotional connection, and long-term impact.
+    </p>
+    <div style="margin-top: 48px; display: flex; gap: 40px;">
+      <div>
+        <p style="font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; margin-bottom: 4px;">4</p>
+        <p style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.35);">Projects</p>
+      </div>
+      <div>
+        <p style="font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 300; margin-bottom: 4px;">∞</p>
+        <p style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(232,228,220,0.35);">Ideas</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<!-- JOURNEY SECTION -->
+<section id="journey" style="
+  padding:120px 48px;
+  border-top:1px solid rgba(232,228,220,0.08);
+">
+
+  <div style="max-width:1200px;margin:auto;">
+
+    <!-- Header -->
+    <div style="margin-bottom:100px;">
+      <p style="
+        font-size:11px;
+        letter-spacing:0.3em;
+        text-transform:uppercase;
+        color:rgba(232,228,220,0.35);
+        margin-bottom:32px;
+      ">
+        The Story Behind The Systems
+      </p>
+
+      <h2 style="
+        font-family:'Cormorant Garamond',serif;
+        font-size:clamp(48px,7vw,90px);
+        font-weight:300;
+        line-height:1;
+      ">
+        From stories<br/>
+        <em style="font-style:italic;">to systems.</em>
+      </h2>
+    </div>
+
+
+    <!-- Timeline Item 1 -->
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      align-items:center;
+      margin-bottom:120px;
+    ">
+
+      <div style="height:420px;overflow:hidden;">
+        <img 
+          src="/journey-01.jpg"
+          alt="Beginning"
+         style="
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 25%;
+  filter:grayscale(20%) brightness(.8);
+"
+        
+        />
+      </div>
+
+
+      <div>
+        <p style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:64px;
+          color:rgba(232,228,220,0.15);
+          margin-bottom:20px;
+        ">
+          2020
+        </p>
+
+        <h3 style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:38px;
+          font-weight:300;
+          margin-bottom:20px;
+        ">
+          The Beginning
+        </h3>
+
+        <p style="
+          font-size:12px;
+          line-height:2;
+          color:rgba(232,228,220,0.5);
+          max-width:400px;
+        ">
+          A small-town dreamer started exploring
+          creativity, technology, and storytelling.
+          The first step of a longer journey.
+        </p>
+      </div>
+
+    </div>
+
+
+
+    <!-- Timeline Item 2 -->
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      align-items:center;
+      margin-bottom:120px;
+    ">
+
+
+      <div style="order:2;height:420px;overflow:hidden;">
+        <img 
+          src="/journey-02.png"
+          alt="Creator"
+          style="
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 25%;
+  filter:grayscale(20%) brightness(.8);
+"
+        />
+      </div>
+
+
+      <div style="order:1;">
+        <p style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:64px;
+          color:rgba(232,228,220,0.15);
+          margin-bottom:20px;
+        ">
+          2022
+        </p>
+
+        <h3 style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:38px;
+          font-weight:300;
+          margin-bottom:20px;
+        ">
+          The Creator
+        </h3>
+
+        <p style="
+          font-size:12px;
+          line-height:2;
+          color:rgba(232,228,220,0.5);
+        ">
+          Built Bangaliana Entertainment and
+          discovered the power of stories,
+          characters, and communities.
+        </p>
+      </div>
+
+    </div>
+
+
+
+    <!-- Timeline Item 3 -->
+    <div style="
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:80px;
+      align-items:center;
+    ">
+
+      <div style="height:420px;overflow:hidden;">
+        <img 
+          src="/journey-03.png"
+          alt="Builder"
+          style="
+            width:100%;
+            height:100%;
+            object-fit:cover;
+            filter:grayscale(20%) brightness(.8);
+          "
+        />
+      </div>
+
+
+      <div>
+
+        <p style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:64px;
+          color:rgba(232,228,220,0.15);
+          margin-bottom:20px;
+        ">
+          NOW
+        </p>
+
+
+        <h3 style="
+          font-family:'Cormorant Garamond',serif;
+          font-size:38px;
+          font-weight:300;
+          margin-bottom:20px;
+        ">
+          The Systems Thinker
+        </h3>
+
+
+        <p style="
+          font-size:12px;
+          line-height:2;
+          color:rgba(232,228,220,0.5);
+        ">
+          Building Betazu — where AI,
+          technology, business systems,
+          and human creativity come together.
+        </p>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</section>
+<!-- FOOTER CONTACT CTA -->
+<section id="contact" style="padding:120px 48px; border-top:1px solid rgba(232,228,220,0.08); position:relative; overflow:hidden;">
+
+  <div style="
+    position:absolute;
+    inset:0;
+    background:radial-gradient(ellipse at center, rgba(232,228,220,0.03) 0%, transparent 70%);
+  "></div>
+
+  <div style="
+    position:relative;
+    z-index:1;
+    max-width:900px;
+    margin:auto;
+  ">
+
+    <p style="
+      font-size:11px;
+      letter-spacing:0.3em;
+      text-transform:uppercase;
+      color:rgba(232,228,220,0.35);
+      margin-bottom:32px;
+      text-align:center;
+    ">
+      Let's Build Together
+    </p>
+
+    <h2 style="
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(48px,8vw,100px);
+      font-weight:300;
+      line-height:1;
+      letter-spacing:-0.02em;
+      margin-bottom:70px;
+      text-align:center;
+    ">
+      Start a<br/>
+      <em style="font-style:italic;">conversation.</em>
+    </h2>
+
+
+    <form style="
+      display:grid;
+      gap:24px;
+      max-width:650px;
+      margin:auto;
+    ">
+
+
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+        <input 
+          type="text"
+          placeholder="Your Name"
+          style="
+            background:transparent;
+            border:none;
+            border-bottom:1px solid rgba(232,228,220,0.2);
+            padding:18px 0;
+            color:#e8e4dc;
+            font-family:'Geist Mono',monospace;
+            font-size:12px;
+            outline:none;
+          "
+        />
+
+        <input 
+          type="email"
+          placeholder="Email Address"
+          style="
+            background:transparent;
+            border:none;
+            border-bottom:1px solid rgba(232,228,220,0.2);
+            padding:18px 0;
+            color:#e8e4dc;
+            font-family:'Geist Mono',monospace;
+            font-size:12px;
+            outline:none;
+          "
+        />
+
+      </div>
+
+
+      <input 
+        type="text"
+        placeholder="Subject"
+        style="
+          background:transparent;
+          border:none;
+          border-bottom:1px solid rgba(232,228,220,0.2);
+          padding:18px 0;
+          color:#e8e4dc;
+          font-family:'Geist Mono',monospace;
+          font-size:12px;
+          outline:none;
+        "
+      />
+
+
+      <textarea
+        rows="5"
+        placeholder="Tell me about your idea..."
+        style="
+          background:transparent;
+          border:none;
+          border-bottom:1px solid rgba(232,228,220,0.2);
+          padding:18px 0;
+          color:#e8e4dc;
+          font-family:'Geist Mono',monospace;
+          font-size:12px;
+          outline:none;
+          resize:none;
+        "
+      ></textarea>
+
+
+      <button 
+        type="submit"
+        style="
+          margin-top:25px;
+          padding:18px 48px;
+          border:1px solid #e8e4dc;
+          background:transparent;
+          color:#e8e4dc;
+          font-family:'Geist Mono',monospace;
+          font-size:11px;
+          letter-spacing:0.25em;
+          text-transform:uppercase;
+          cursor:pointer;
+          transition:all .3s ease;
+        "
+      >
+        Send Message
+      </button>
+
+
+    </form>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer style="padding: 32px 48px; border-top: 1px solid rgba(232,228,220,0.08); display: flex; justify-content: space-between; align-items: center;">
+  <span style="font-size: 11px; color: rgba(232,228,220,0.25); letter-spacing: 0.1em;">© 2025 Bikram Mondal</span>
+  <div style="display: flex; gap: 32px;">
+    <a href="#" style="font-size: 11px; color: rgba(232,228,220,0.25); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s;">Twitter</a>
+    <a href="#" style="font-size: 11px; color: rgba(232,228,220,0.25); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s;">LinkedIn</a>
+    <a href="#" style="font-size: 11px; color: rgba(232,228,220,0.25); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.2s;">Instagram</a>
+  </div>
+</footer>
+
+<style>
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+</style>
+
+</body>
+</html>

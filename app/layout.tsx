@@ -28,33 +28,33 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Analytics */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-5EEEPFH0F6"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-5EEEPFH0F6');
-          `}
-        </Script>
-      </head>
+  <head />
+  <body
+    suppressHydrationWarning
+    className={`
+      ${geistSans.variable}
+      ${geistMono.variable}
+      bg-background
+      text-foreground
+      antialiased
+    `}
+  >
+    {children}
 
-      <body
-        className={`
-          ${geistSans.variable}
-          ${geistMono.variable}
-          bg-background
-          text-foreground
-          antialiased
-        `}
-      >
-        {children}
-      </body>
-    </html>
+    {/* Google Analytics */}
+    <Script
+      src="https://www.googletagmanager.com/gtag/js?id=G-5EEEPFH0F6"
+      strategy="afterInteractive"
+    />
+    <Script id="google-analytics" strategy="afterInteractive">
+      {`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-5EEEPFH0F6');
+      `}
+    </Script>
+  </body>
+</html>
   );
 }
