@@ -102,7 +102,7 @@ const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
   setLoading(true);
 
   const formData = new FormData(e.currentTarget);
-
+const form = e.currentTarget;
 const body = {
   name: formData.get("name"),
   email: formData.get("email"),
@@ -131,7 +131,7 @@ console.log(body);
 
     setSuccess(true);
 
-e.currentTarget.reset();
+form.reset();
 
 setTimeout(() => {
   setSuccess(false);
@@ -163,6 +163,7 @@ setTimeout(() => {
         <nav className={`${mono.className} hidden md:flex gap-10 text-[11px] uppercase tracking-[0.25em] text-white/40`}>
           <a href="#journey">Journey</a>
           <a href="#work">Work</a>
+          <a href="/insights">Insights</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
         </nav>
@@ -545,7 +546,7 @@ contrast-105
                   font-light
                 `}
               >
-                4
+                10+
               </h3>
 
 

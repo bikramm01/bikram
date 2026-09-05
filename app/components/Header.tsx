@@ -1,66 +1,66 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Cormorant_Garamond, Geist_Mono } from "next/font/google";
+
+const serif = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
+});
+
+const mono = Geist_Mono({
+  subsets: ["latin"],
+  weight: ["300", "400"],
+});
+
+const navigation = [
+  {
+    label: "Journey",
+    href: "/#journey",
+  },
+  {
+    label: "Work",
+    href: "/#work",
+  },
+  {
+    label: "Insights",
+    href: "/insights",
+  },
+  {
+    label: "About",
+    href: "/#about",
+  },
+  {
+    label: "Contact",
+    href: "/#contact",
+  },
+];
 
 export default function Header() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <header className="fixed top-0 w-full z-50 backdrop-blur border-b border-white/10 bg-background/80">
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 flex items-center justify-between bg-gradient-to-b from-black/80 to-transparent">
+      {/* LOGO */}
+      <a
+        href="/"
+        className={`${serif.className} text-xl text-white hover:opacity-70 transition-opacity`}
+      >
+        BIKRAM
+      </a>
 
-        {/* Brand */}
-        <span className="font-semibold text-white">
-          Bikram Mondal
-        </span>
-
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm text-gray-400">
-          <Link href="#work" className="hover:text-white">Work</Link>
-          <Link href="#writing" className="hover:text-white">Writing</Link>
-          <Link href="#focus" className="hover:text-white">Now</Link>
-        </nav>
-
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setOpen(!open)}
-          className="md:hidden text-gray-400 hover:text-white"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {open && (
-        <div className="md:hidden border-t border-white/10 bg-background/95 backdrop-blur">
-          <nav className="flex flex-col px-6 py-4 space-y-4 text-sm text-gray-400">
-            <Link
-              href="#work"
-              className="hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              Work
-            </Link>
-            <Link
-              href="#writing"
-              className="hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              Writing
-            </Link>
-            <Link
-              href="#focus"
-              className="hover:text-white"
-              onClick={() => setOpen(false)}
-            >
-              Now
-            </Link>
-          </nav>
-        </div>
-      )}
+      {/* DESKTOP NAV */}
+      <nav
+        className={`${mono.className} hidden md:flex gap-10 text-[11px] uppercase tracking-[0.25em] text-white/40`}
+      >
+        {navigation.map((item) => (
+          <a
+            key={item.label}
+            href={item.href}
+            className="hover:text-white transition-colors"
+          >
+            {item.label}
+          </a>
+        ))}
+      </nav>
     </header>
   );
 }

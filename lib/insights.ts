@@ -2,15 +2,18 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 
-const BLOG_DIR = path.join(process.cwd(), "content/blogs");
+const INSIGHTS_DIR = path.join(process.cwd(), "content/insights");
 
-export function getAllBlogs() {
-  const files = fs.readdirSync(BLOG_DIR);
+export function getAllInsights() {
+  const files = fs.readdirSync(INSIGHTS_DIR);
 
-  const blogs = files.map((file) => {
+  const insights = files.map((file) => {
     const slug = file.replace(/\.mdx$/, "");
-    const filePath = path.join(BLOG_DIR, file);
+
+    const filePath = path.join(INSIGHTS_DIR, file);
+
     const fileContent = fs.readFileSync(filePath, "utf8");
+
     const { data } = matter(fileContent);
 
     return {
@@ -25,7 +28,8 @@ export function getAllBlogs() {
     };
   });
 
-  return blogs.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  return insights.sort(
+    (a, b) =>
+      new Date(b.date).getTime() - new Date(a.date).getTime()
   );
 }

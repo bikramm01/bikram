@@ -24,7 +24,7 @@ export default function Footer() {
           </Link>
 
           <Link
-            href="https://www.youtube.com/@bigbebright"
+            href="https://www.youtube.com/@bikrammondaldotin"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="YouTube"
@@ -34,7 +34,7 @@ export default function Footer() {
           </Link>
 
           <Link
-            href="https://www.facebook.com/iambikramm01"
+            href="https://www.facebook.com/bikrammondaldotin"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
