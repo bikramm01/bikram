@@ -5,7 +5,7 @@ import {
   Inter,
   Geist_Mono,
 } from "next/font/google";
-
+import Header from "./components/Header";
 
 const serif = Cormorant_Garamond({
   subsets: ["latin"],
@@ -153,22 +153,7 @@ setTimeout(() => {
 
       {/* NAV */}
 
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-6 flex items-center justify-between bg-gradient-to-b from-black/80 to-transparent">
-
-        <div className={`${serif.className} text-xl`}>
-          BIKRAM
-        </div>
-
-
-        <nav className={`${mono.className} hidden md:flex gap-10 text-[11px] uppercase tracking-[0.25em] text-white/40`}>
-          <a href="#journey">Journey</a>
-          <a href="#work">Work</a>
-          <a href="/insights">Insights</a>
-          <a href="#about">About</a>
-          <a href="#contact">Contact</a>
-        </nav>
-
-      </header>
+      <Header />
 
 
 
@@ -192,11 +177,11 @@ setTimeout(() => {
 <div className="absolute inset-0 bg-gradient-to-t from-[#0b0a09] via-black/30 to-transparent" />
 
         <div className="relative z-10 px-6 md:px-12 pb-24 max-w-4xl">
-
-          <p className={`${mono.className} text-[11px] uppercase tracking-[0.35em] text-white/50 mb-8`}>
-            Builder · Storyteller · Systems Thinker
-          </p>
-
+<p
+  className={`${mono.className} hidden md:block text-[11px] uppercase tracking-[0.35em] text-white/50 mb-8`}
+>
+  Builder · Storyteller · Systems Thinker
+</p>
 
           <h1 className={`${serif.className} text-[clamp(60px,10vw,110px)] font-light leading-none`}>
             Bikram
@@ -206,7 +191,7 @@ setTimeout(() => {
 
 
           <p className="mt-8 max-w-md text-sm leading-8 text-white/60">
-            Building intelligent digital systems, brands, and experiences from India —
+            Building intelligent digital systems, brands, and experiences from India -
             where software meets storytelling.
           </p>
 
