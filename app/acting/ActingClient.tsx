@@ -490,7 +490,7 @@ export default function ActingClient() {
           </p>
 
           <a
-            href="mailto:bangalianaenquiries@gmail.com"
+            href="/#contact"
             className={`${mono.className} inline-flex mt-10 border border-[#e8e4dc] px-8 py-5 text-[10px] uppercase tracking-[0.25em] hover:bg-[#e8e4dc] hover:text-black transition`}
           >
             Casting Enquiries

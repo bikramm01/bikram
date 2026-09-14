@@ -1,51 +1,96 @@
-// src/app/api/contact/route.ts
+import { NextResponse } from "next/server";
 
-import { NextRequest, NextResponse } from "next/server";
+const BOS_API_URL = "https://www.betazu.com/api/v1/bos/leads";
 
-const FORM_ID =
-  "b0b2727847c66a07a0e8fca0804ee2a23f78b5ea873ef98f02f77c15a1b24565";
-
-export async function POST(req: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const body = await req.json();
+    const body = await request.json();
 
-    const response = await fetch(
-      `https://www.betazu.com/api/sites/form/${FORM_ID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
+    const {
+      name,
+      email,
+      phone_number,
+      company,
+      what_are_you_looking_for,
+      message,
+    } = body;
+
+    // Basic validation
+    if (!name || !email || !what_are_you_looking_for || !message) {
+      return NextResponse.json(
+        {
+          message: "Please fill in all required fields.",
         },
-        body: JSON.stringify(body),
-        cache: "no-store",
-      }
-    );
-
-    const text = await response.text();
-
-console.log("Status:", response.status);
-console.log("Response:", text);
-
-const data = text ? JSON.parse(text) : {};
-
-    if (!response.ok) {
-      return NextResponse.json(data, {
-        status: response.status,
-      });
+        { status: 400 }
+      );
     }
 
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error("Contact API Error:", error);
+    const apiKey = process.env.BETAZU_BOS_API_KEY;
+
+    if (!apiKey) {
+      console.error("BETAZU_BOS_API_KEY is not configured");
+
+      return NextResponse.json(
+        {
+          message: "Contact service is not configured.",
+        },
+        { status: 500 }
+      );
+    }
+
+    const bosResponse = await fetch(BOS_API_URL, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        phone: phone_number || undefined,
+        company: company || undefined,
+        message,
+
+        source: "Bikram Personal Website",
+
+        custom_fields: {
+          enquiry_type: what_are_you_looking_for,
+        },
+      }),
+    });
+
+    const bosData = await bosResponse.json().catch(() => null);
+
+    if (!bosResponse.ok) {
+      console.error("BOS API error:", {
+        status: bosResponse.status,
+        data: bosData,
+      });
+
+      return NextResponse.json(
+        {
+          message: "Unable to send your message right now.",
+        },
+        { status: 502 }
+      );
+    }
 
     return NextResponse.json(
       {
-        success: false,
-        message: "Something went wrong.",
+        success: true,
+        message: "Message sent successfully.",
+        lead: bosData,
       },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Contact API error:", error);
+
+    return NextResponse.json(
       {
-        status: 500,
-      }
+        message: "Something went wrong. Please try again.",
+      },
+      { status: 500 }
     );
   }
 }

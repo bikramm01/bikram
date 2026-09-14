@@ -54,7 +54,7 @@ const journey = [
     title: "The Systems Thinker",
     image: "/journey-03.png",
     text:
-      "Building Betazu — where AI, technology, business systems, and human creativity come together.",
+      "Building Betazu - where AI, technology, business systems, and human creativity come together.",
   },
 ];
 
@@ -96,24 +96,27 @@ const [success, setSuccess] = useState(false);
 
 const [loading, setLoading] = useState(false);
 
-const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
   e.preventDefault();
 
   setLoading(true);
 
-  const formData = new FormData(e.currentTarget);
-const form = e.currentTarget;
-const body = {
-  name: formData.get("name"),
-  email: formData.get("email"),
-  phone_number: formData.get("phone_number"),
-  company: formData.get("company"),
-  what_are_you_looking_for: formData.get("what_are_you_looking_for"),
-  project_budget: formData.get("project_budget"),
-  timeline: formData.get("timeline"),
-  message: formData.get("message"),
-};
-console.log(body);
+  const form = e.currentTarget;
+  const formData = new FormData(form);
+
+  const body = {
+    name: formData.get("name"),
+    email: formData.get("email"),
+    phone_number: formData.get("phone_number"),
+    company: formData.get("company"),
+    what_are_you_looking_for: formData.get(
+      "what_are_you_looking_for"
+    ),
+    message: formData.get("message"),
+  };
+
   try {
     const res = await fetch("/api/contact", {
       method: "POST",
@@ -126,25 +129,24 @@ console.log(body);
     const data = await res.json();
 
     if (!res.ok) {
-      throw new Error(data.message || "Failed");
+      throw new Error(
+        data.message || "Failed to send message"
+      );
     }
 
+    form.reset();
+
     setSuccess(true);
-
-form.reset();
-
-setTimeout(() => {
-  setSuccess(false);
-}, 3000);
   } catch (err) {
-    console.error(err);
-    alert("Something went wrong.");
+    console.error("Contact form error:", err);
+
+    alert(
+      "Something went wrong. Please try again."
+    );
   } finally {
     setLoading(false);
   }
 };
-
-
 
 
 
@@ -510,7 +512,7 @@ contrast-105
 
           <p className="mt-10 max-w-md text-sm leading-8 text-white/50">
 
-            I work at the intersection of technology and storytelling —
+            I work at the intersection of technology and storytelling -
             building digital ecosystems designed for utility,
             emotional connection, and long-term impact.
 
@@ -590,21 +592,17 @@ contrast-105
       </section>
 
 
-
-
-
-
-      {/* CONTACT */}
+{/* CONTACT */}
 <section
   id="contact"
   className="
     relative
     overflow-hidden
     px-6
-    md:px-12
     py-32
     border-t
     border-white/10
+    md:px-12
   "
 >
   <div
@@ -615,199 +613,215 @@ contrast-105
     "
   />
 
-  <div className="relative z-10 max-w-3xl mx-auto text-center">
+  <div className="relative z-10 mx-auto max-w-3xl text-center">
+
+    {/* SECTION LABEL */}
     <p
       className={`
         ${mono.className}
+        mb-10
         text-[11px]
         uppercase
         tracking-[0.3em]
         text-white/40
-        mb-10
       `}
     >
-      Let's Build Together
+      {success ? "Message Received" : "Let's Connect"}
     </p>
 
+    {/* HEADING */}
     <h2
       className={`
         ${serif.className}
+        mb-20
         text-[clamp(50px,8vw,100px)]
         font-light
         leading-none
-        mb-20
       `}
     >
-      Start a
-      <br />
-      <em>conversation.</em>
+      {success ? (
+        <>
+          Thank you.
+          <br />
+          <em>I&apos;ll be in touch.</em>
+        </>
+      ) : (
+        <>
+          Start a
+          <br />
+          <em>conversation.</em>
+        </>
+      )}
     </h2>
 
-    <form
-  onSubmit={handleSubmit}
-  className="space-y-8 max-w-xl mx-auto"
->
-  <div className="grid md:grid-cols-2 gap-8">
-    <input
-      type="text"
-      name="name"
-      placeholder="Your Name"
-      required
-      className={inputClass}
-    />
+    {/* SUCCESS STATE */}
+    {success ? (
+      <div className="mx-auto max-w-xl">
 
-    <input
-      type="email"
-      name="email"
-      placeholder="Email Address"
-      required
-      className={inputClass}
-    />
-  </div>
+        <p className="mx-auto max-w-md text-sm leading-8 text-white/50">
+          Your message has been received successfully. I appreciate you
+          reaching out and will get back to you as soon as possible.
+        </p>
 
-  <div className="grid md:grid-cols-2 gap-8">
-    <input
-      type="tel"
-      name="phone_number"
-      placeholder="Phone Number"
-      className={inputClass}
-    />
+        <button
+          type="button"
+          onClick={() => setSuccess(false)}
+          className={`
+            ${mono.className}
+            mt-10
+            border
+            border-white/20
+            px-8
+            py-4
+            text-[10px]
+            uppercase
+            tracking-[0.25em]
+            text-white/50
+            transition
+            hover:border-white
+            hover:text-white
+          `}
+        >
+          Send Another Message
+        </button>
 
-    <input
-      type="text"
-      name="company"
-      placeholder="Company (Optional)"
-      className={inputClass}
-    />
-  </div>
+      </div>
+    ) : (
 
-  <select
-    name="what_are_you_looking_for"
-    required
-    defaultValue=""
-    className={inputClass}
-  >
-    <option value="" disabled>
-      What are you looking for?
-    </option>
+      /* CONTACT FORM */
+      <form
+        onSubmit={handleSubmit}
+        className="mx-auto max-w-xl space-y-8"
+      >
 
-    <option value="AI & Automation">
-      AI & Automation
-    </option>
+        {/* NAME + EMAIL */}
+        <div className="grid gap-8 md:grid-cols-2">
 
-    <option value="Website Development">
-      Website Development
-    </option>
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            className={inputClass}
+          />
 
-    <option value="Custom Software">
-      Custom Software
-    </option>
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            required
+            className={inputClass}
+          />
 
-    <option value="Brand & Storytelling">
-      Brand & Storytelling
-    </option>
+        </div>
 
-    <option value="Collaboration">
-      Collaboration
-    </option>
-  </select>
+        {/* PHONE + COMPANY */}
+        <div className="grid gap-8 md:grid-cols-2">
 
-  <select
-    name="project_budget"
-    defaultValue=""
-    className={inputClass}
-  >
-    <option value="" disabled>
-      Project Budget
-    </option>
+          <input
+            type="tel"
+            name="phone_number"
+            placeholder="Phone Number (Optional)"
+            className={inputClass}
+          />
 
-    <option value="₹25K - ₹50K">
-      ₹25K - ₹50K
-    </option>
+          <input
+            type="text"
+            name="company"
+            placeholder="Company (Optional)"
+            className={inputClass}
+          />
 
-    <option value="₹50K - ₹1L">
-      ₹50K - ₹1L
-    </option>
+        </div>
 
-    <option value="₹1L - ₹5L">
-      ₹1L - ₹5L
-    </option>
+        {/* ENQUIRY TYPE */}
+        <select
+          name="what_are_you_looking_for"
+          required
+          defaultValue=""
+          className={inputClass}
+        >
+          <option value="" disabled>
+            What would you like to talk about?
+          </option>
 
-    <option value="₹5L+">
-      ₹5L+
-    </option>
+          <option value="Betazu">
+            Betazu
+          </option>
 
-    <option value="Not Sure">
-      Not Sure
-    </option>
-  </select>
+          <option value="Betazu BOS">
+            Betazu BOS
+          </option>
 
-  <select
-    name="timeline"
-    defaultValue=""
-    className={inputClass}
-  >
-    <option value="" disabled>
-      Timeline
-    </option>
+          <option value="Performance Marketing">
+            Performance Marketing
+          </option>
 
-    <option value="ASAP">
-      ASAP
-    </option>
+          <option value="Sales Improvement">
+            Sales Improvement
+          </option>
 
-    <option value="Within 1 Month">
-      Within 1 Month
-    </option>
+          <option value="Marketing Funnel">
+            Marketing Funnel
+          </option>
 
-    <option value="1–3 Months">
-      1–3 Months
-    </option>
+          <option value="Technology & Systems">
+            Technology & Systems
+          </option>
 
-    <option value="3+ Months">
-      3+ Months
-    </option>
+          <option value="Acting / Film">
+            Acting / Film
+          </option>
 
-    <option value="Just Exploring">
-      Just Exploring
-    </option>
-  </select>
+          <option value="Brand / Content Collaboration">
+            Brand / Content Collaboration
+          </option>
 
-  <textarea
-    name="message"
-    rows={5}
-    required
-    placeholder="Tell me about your project..."
-    className={inputClass}
-  />
+          <option value="Partnership">
+            Partnership
+          </option>
 
-  <button
-    type="submit"
-    disabled={loading}
-    className="
-      border
-      border-[#e8e4dc]
-      px-12
-      py-5
-      text-[11px]
-      uppercase
-      tracking-[0.3em]
-      transition
-      hover:bg-[#e8e4dc]
-      hover:text-black
-      disabled:opacity-50
-      disabled:cursor-not-allowed
-    "
-  >
-   {loading
-    ? "Sending..."
-    : success
-    ? "✓ Message Sent"
-    : "Start Conversation"}
-  </button>
-</form>
+          <option value="Other">
+            Other
+          </option>
+        </select>
+
+        {/* MESSAGE */}
+        <textarea
+          name="message"
+          rows={6}
+          required
+          placeholder="Tell me what you're working on..."
+          className={inputClass}
+        />
+
+        {/* SUBMIT */}
+        <button
+          type="submit"
+          disabled={loading}
+          className="
+            border
+            border-[#e8e4dc]
+            px-12
+            py-5
+            text-[11px]
+            uppercase
+            tracking-[0.3em]
+            transition
+            hover:bg-[#e8e4dc]
+            hover:text-black
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+          "
+        >
+          {loading ? "Sending..." : "Start Conversation"}
+        </button>
+
+      </form>
+    )}
+
   </div>
 </section>
-
             {/* FOOTER */}
 
       <footer
