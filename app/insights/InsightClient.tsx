@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -11,7 +12,7 @@ type Insight = {
   excerpt: string;
   date: string;
   category: string;
-  cover: string;
+  cover?: string | null;
   focalX?: number;
   focalY?: number;
 };
@@ -43,7 +44,6 @@ export default function InsightClient({
 
   return (
     <main className="max-w-6xl mx-auto px-6 pt-32 pb-24 space-y-20">
-
       {/* HERO */}
       <section className="space-y-4 max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-semibold text-white">
@@ -82,28 +82,34 @@ export default function InsightClient({
             key={insight.slug}
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{
-              delay: index * 0.05,
-            }}
+            transition={{ delay: index * 0.05 }}
             className="rounded-2xl overflow-hidden border border-white/10 bg-surface"
           >
             <Link
               href={`/insights/${insight.slug}`}
               className="block group"
             >
-              <div className="relative aspect-[16/10] overflow-hidden">
-                <Image
-                  src={insight.cover}
-                  alt={insight.title}
-                  fill
-                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  style={{
-                    objectPosition: `${insight.focalX ?? 50}% ${
-                      insight.focalY ?? 50
-                    }%`,
-                  }}
-                />
+              <div className="relative aspect-[16/10] overflow-hidden bg-white/5">
+                {insight.cover?.trim() ? (
+                  <Image
+                    src={insight.cover}
+                    alt={insight.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    style={{
+                      objectPosition: `${insight.focalX ?? 50}% ${
+                        insight.focalY ?? 50
+                      }%`,
+                    }}
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-sm text-gray-500">
+                      {insight.category}
+                    </span>
+                  </div>
+                )}
               </div>
 
               <div className="p-6 space-y-3">
@@ -142,7 +148,6 @@ export default function InsightClient({
           </p>
         </div>
       )}
-
     </main>
   );
 }

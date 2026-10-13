@@ -1,3 +1,4 @@
+
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -16,6 +17,11 @@ export default async function InsightPost({
 }) {
   const { slug } = await params;
 
+  // Prevent invalid paths from escaping the insights directory.
+  if (!/^[a-zA-Z0-9_-]+$/.test(slug)) {
+    notFound();
+  }
+
   const filePath = path.join(INSIGHTS_DIR, `${slug}.mdx`);
 
   if (!fs.existsSync(filePath)) {
@@ -23,22 +29,27 @@ export default async function InsightPost({
   }
 
   const fileContent = fs.readFileSync(filePath, "utf8");
-
   const { content, data } = matter(fileContent);
+
+  // Remove frontmatter from the body if it was accidentally duplicated.
+  const articleContent = content.replace(
+    /^\s*---\s*\r?\n[\s\S]*?\r?\n---\s*(?:\r?\n|$)/,
+    ""
+  );
 
   return (
     <>
       <Header />
 
       <main className="max-w-3xl mx-auto px-6 pt-32 pb-24 space-y-10">
-
         {/* COVER IMAGE */}
-        {data.cover && (
+        {typeof data.cover === "string" && data.cover.trim() && (
           <div className="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border border-white/10">
             <Image
               src={data.cover}
-              alt={data.title}
+              alt={data.title ?? "Insight cover"}
               fill
+              sizes="(max-width: 768px) 100vw, 768px"
               className="object-cover"
               style={{
                 objectPosition: `${data.focalX ?? 50}% ${
@@ -69,17 +80,14 @@ export default async function InsightPost({
           )}
 
           {data.date && (
-            <p className="text-gray-500 text-sm">
-              {data.date}
-            </p>
+            <p className="text-gray-500 text-sm">{data.date}</p>
           )}
         </section>
 
-        {/* CONTENT */}
+        {/* ARTICLE BODY */}
         <article className="prose prose-invert prose-lg max-w-none">
-          <MDXRemote source={content} />
+          <MDXRemote source={articleContent} />
         </article>
-
       </main>
 
       <Footer />
