@@ -84,10 +84,11 @@ export default async function InsightPost({
           )}
         </section>
 
+  
         {/* ARTICLE BODY */}
-        <article className="prose prose-invert prose-lg max-w-none">
-          <MDXRemote source={articleContent} />
-        </article>
+<article className="insight-content prose prose-invert prose-lg max-w-none">
+  <MDXRemote source={articleContent} />
+</article>
       </main>
 
       <Footer />

@@ -52,3 +52,43 @@ p {
 .divider {
   border-color: var(--border);
 }
+
+
+/* ===============================
+   Insight Article Reading Spacing
+   =============================== */
+
+.insight-content p {
+  margin-top: 0 !important;
+  margin-bottom: 28px !important;
+  line-height: 2 !important;
+}
+
+.insight-content h2 {
+  margin-top: 56px !important;
+  margin-bottom: 24px !important;
+  line-height: 1.35 !important;
+}
+
+.insight-content h3 {
+  margin-top: 40px !important;
+  margin-bottom: 16px !important;
+  line-height: 1.4 !important;
+}
+
+.insight-content ul,
+.insight-content ol {
+  margin-top: 24px !important;
+  margin-bottom: 28px !important;
+  padding-left: 28px;
+}
+
+.insight-content li {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  line-height: 1.9 !important;
+}
+
+.insight-content strong {
+  color: #ffffff;
+}
